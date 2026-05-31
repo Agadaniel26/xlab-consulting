@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom'
-
-const STATS = [
-  { num: '2018', label: 'Year Founded'       },
-  { num: '3',    label: 'Service Lines'      },
-  { num: '20+',  label: 'Expert Researchers' },
-  { num: '3+',   label: 'Institutional Clients' },
-]
+import { useState, useEffect } from 'react'
 
 const SERVICES = [
   {
@@ -31,31 +25,22 @@ const SERVICES = [
   },
 ]
 
-const RESEARCH = [
-  {
-    tag: 'Economics · Information Theory',
-    title: 'The Contributions of the Economics of Information to Twentieth Century Economics',
-    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80',
-  },
-  {
-    tag: 'Labour Economics · Signalling',
-    title: 'Job Market Signalling',
-    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&q=80',
-  },
-  {
-    tag: 'Market Analysis · Information',
-    title: "The Market for 'Lemons': Quality Uncertainty and the Market Mechanism",
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80',
-  },
-]
-
 const CLIENTS = [
-  { name: 'Durham University',        img: 'https://static.wixstatic.com/media/59235a_bb2b351783f34dccafa790046410c89a~mv2_d_3402_3402_s_4_2.jpg' },
-  { name: 'University of Nigeria',    img: 'https://static.wixstatic.com/media/59235a_9836dc96d40047a5b270bdc055e586f5~mv2.jpg' },
-  { name: 'TETFUND',                  img: 'https://static.wixstatic.com/media/59235a_d3c282c7eae144edbe0365ba000bf05e~mv2.jpg' },
+  { name: 'Durham University',     img: 'https://static.wixstatic.com/media/59235a_bb2b351783f34dccafa790046410c89a~mv2_d_3402_3402_s_4_2.jpg' },
+  { name: 'University of Nigeria', img: 'https://static.wixstatic.com/media/59235a_9836dc96d40047a5b270bdc055e586f5~mv2.jpg' },
+  { name: 'TETFUND',               img: 'https://static.wixstatic.com/media/59235a_d3c282c7eae144edbe0365ba000bf05e~mv2.jpg' },
 ]
 
 export default function HomePage() {
+  const [papers, setPapers] = useState([])
+
+  useEffect(() => {
+    fetch('/papers/index.json')
+      .then(r => r.json())
+      .then(data => setPapers(data))
+      .catch(() => setPapers([]))
+  }, [])
+
   return (
     <>
       {/* ── HERO ── */}
@@ -83,22 +68,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="hero-scroll">Scroll</div>
       </section>
-
-      {/* ── STATS ── */}
-      <div className="stats-band">
-        <div className="container">
-          <div className="stats-inner">
-            {STATS.map(s => (
-              <div key={s.num} className="stat-item">
-                <span className="stat-num">{s.num}</span>
-                <span className="stat-label">{s.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ── SERVICES ── */}
       <section className="services-strip">
@@ -149,29 +119,36 @@ export default function HomePage() {
       </div>
 
       {/* ── RESEARCH ── */}
-      <section className="research-section">
-        <div className="container">
-          <div className="section-header">
-            <span className="overline">Featured Research</span>
-            <h2>Latest publications &amp; papers</h2>
-            <p>A selection of our most recent research outputs and working papers.</p>
+      {papers.length > 0 && (
+        <section className="research-section">
+          <div className="container">
+            <div className="section-header">
+              <span className="overline">Featured Research</span>
+              <h2>Latest publications &amp; papers</h2>
+              <p>A selection of our most recent research outputs and working papers.</p>
+            </div>
+            <div className="research-grid">
+              {papers.slice(0, 3).map(paper => (
+                <Link to={`/research?paper=${paper.id}`} key={paper.id} className="research-card">
+                  <div className="research-card-header">
+                    {(paper.tags || []).map(tag => (
+                      <span key={tag} className="research-card-tag">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="research-card-body">
+                    <h3>{paper.title}</h3>
+                    <p className="research-card-meta">{paper.authors} · {paper.year}</p>
+                    <span className="research-card-link">Read paper →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <Link to="/research" className="btn btn-dark">See all papers →</Link>
+            </div>
           </div>
-          <div className="research-grid">
-            {RESEARCH.map(item => (
-              <article key={item.title} className="research-card">
-                <div className="research-card-img">
-                  <img src={item.img} alt={item.title} loading="lazy" />
-                </div>
-                <div className="research-card-body">
-                  <p className="research-card-tag">{item.tag}</p>
-                  <h3>{item.title}</h3>
-                  <span className="research-card-link">Read paper →</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── CLIENTS ── */}
       <section className="clients-section">

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "epu-fls-framework",
+    "title": "EPU FLS Paper Framework v3",
+    "authors": "XLab Research Team",
+    "year": 2024,
+    "description": "Framework paper on Economic Policy Uncertainty and Forward-Looking Statements.",
+    "file": "EPU_FLS_Paper_Framework_v3.pdf",
+    "tags": ["EPU", "Policy"]
+  },
+  {
+    "id": "jung-kim-2024",
+    "title": "Economic Policy Uncertainty & Narrative R&D Disclosures",
+    "authors": "Jung & Kim",
+    "year": 2024,
+    "description": "Examines how economic policy uncertainty affects narrative R&D disclosures in corporate reporting.",
+    "file": "Jung-Kim-2024-EPU-Narrative-RD-Disclosures.pdf",
+    "tags": ["EPU", "R&D", "Disclosure"]
+  },
+  {
+    "id": "policy-uncertainty-investment",
+    "title": "Policy Uncertainty and Corporate Investment",
+    "authors": "XLab Research Team",
+    "year": 2024,
+    "description": "Explores how policy uncertainty influences corporate investment decisions and capital allocation.",
+    "file": "Policy Uncertainty and Corporate Investment.pdf",
+    "tags": ["Policy", "Investment", "Corporate Finance"]
+  },
+  {
+    "id": "okorie-lin-2021",
+    "title": "Stock Market & COVID-19",
+    "authors": "Okorie & Lin",
+    "year": 2021,
+    "description": "Investigates the relationship between stock market dynamics and the COVID-19 pandemic.",
+    "file": "Okorie-Lin-2021-Stock-Market-COVID-19.pdf",
+    "tags": ["Finance", "COVID-19"]
+  }
+]

@@ -44,9 +44,10 @@ export default function Footer() {
             <h3>Navigate</h3>
             <ul>
               {[
-                { to: '/',         label: 'Home'     },
+                { to: '/',          label: 'Home'     },
                 { to: '/about',    label: 'About'    },
                 { to: '/services', label: 'Services' },
+                { to: '/research', label: 'Research' },
                 { to: '/contact',  label: 'Contact'  },
               ].map(({ to, label }) => (
                 <li key={to}><Link to={to}>{label}</Link></li>
@@ -72,13 +73,6 @@ export default function Footer() {
               <li><a href="tel:+2348187311660">+234 818 731 1660</a></li>
               <li style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>Nigeria</li>
             </ul>
-            <div className="footer-subscribe">
-              <h3>Newsletter</h3>
-              <form className="footer-subscribe-form" onSubmit={e => e.preventDefault()}>
-                <input type="email" placeholder="Your email address" />
-                <button type="submit">→</button>
-              </form>
-            </div>
           </div>
 
         </div>

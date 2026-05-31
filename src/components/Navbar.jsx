@@ -5,6 +5,7 @@ const NAV = [
   { to: '/',         label: 'Home'     },
   { to: '/about',    label: 'About'    },
   { to: '/services', label: 'Services' },
+  { to: '/research', label: 'Research' },
 ]
 
 export default function Navbar() {

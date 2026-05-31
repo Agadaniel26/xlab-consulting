@@ -1,23 +1,5 @@
 import { Link } from 'react-router-dom'
 
-const LEADERSHIP = [
-  { name: 'Ekene Aguegboh',   role: 'Chief Executive Officer',  initials: 'EA' },
-  { name: 'Chidozie Nnachor', role: 'Chief Operations Officer', initials: 'CN' },
-  { name: 'Maduabuchi Eze',   role: 'Chief Financial Officer',  initials: 'ME' },
-  { name: 'Godfrey Ihedimma', role: 'Director of Research',     initials: 'GI' },
-]
-
-const RESEARCHERS = [
-  { name: 'Uchenna Onuoha',     role: 'Assistant Director'  },
-  { name: 'Ozoemena Nwobodo',   role: 'Senior Researcher'   },
-  { name: 'Ozioma Aguegboh',    role: 'Research Associate'  },
-  { name: 'Chinedu Nevo',       role: 'Research Associate'  },
-  { name: 'Davidmac Olisa',     role: 'Research Associate'  },
-  { name: 'Chinonso Agu',       role: 'Research Associate'  },
-  { name: 'Chiamaka Okolomike', role: 'Research Associate'  },
-  { name: 'Chimere Iheonu',     role: 'Research Associate'  },
-  { name: 'Emmanuel Ugwuoke',   role: 'Research Assistant'  },
-]
 
 const VALUES = [
   {
@@ -129,42 +111,6 @@ export default function AboutPage() {
                 <div className="value-card-icon">{v.icon}</div>
                 <h3>{v.title}</h3>
                 <p>{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── LEADERSHIP ── */}
-      <section className="team-section">
-        <div className="container">
-          <p className="team-heading">Our People</p>
-          <h2 className="team-sub-heading">Leadership Team</h2>
-          <div className="team-grid">
-            {LEADERSHIP.map(m => (
-              <div key={m.name} className="team-card">
-                <div className="team-photo">
-                  <div className="team-initials">{m.initials}</div>
-                </div>
-                <div className="team-info">
-                  <p className="team-name">{m.name}</p>
-                  <p className="team-role">{m.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── RESEARCHERS ── */}
-      <section className="researchers-section">
-        <div className="container">
-          <p className="researchers-label">Research Team</p>
-          <div className="researchers-grid">
-            {RESEARCHERS.map(r => (
-              <div key={r.name} className="researcher-card">
-                <p className="r-name">{r.name}</p>
-                <p className="r-role">{r.role}</p>
               </div>
             ))}
           </div>

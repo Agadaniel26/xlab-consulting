@@ -2,10 +2,34 @@ import { useState } from 'react'
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading]     = useState(false)
+  const [error, setError]         = useState('')
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+
+    const data = Object.fromEntries(new FormData(e.target))
+    data.access_key = '689f784a-57ec-49f6-9c07-986c3adac619'
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      if (json.success) {
+        setSubmitted(true)
+      } else {
+        setError('Something went wrong. Please try again or email us directly.')
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -107,27 +131,27 @@ export default function ContactPage() {
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="fname">First Name</label>
-                  <input id="fname" type="text" placeholder="Your first name" required />
+                  <input id="fname" name="first_name" type="text" placeholder="Your first name" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="lname">Last Name</label>
-                  <input id="lname" type="text" placeholder="Your last name" required />
+                  <input id="lname" name="last_name" type="text" placeholder="Your last name" required />
                 </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="email">Email Address</label>
-                <input id="email" type="email" placeholder="your@email.com" required />
+                <input id="email" name="email" type="email" placeholder="your@email.com" required />
               </div>
 
               <div className="form-group">
                 <label htmlFor="org">Organisation (optional)</label>
-                <input id="org" type="text" placeholder="Your organisation or institution" />
+                <input id="org" name="organisation" type="text" placeholder="Your organisation or institution" />
               </div>
 
               <div className="form-group">
                 <label htmlFor="service">Service of Interest</label>
-                <select id="service">
+                <select id="service" name="service">
                   <option value="">Select a service…</option>
                   <option>Research</option>
                   <option>Advisory</option>
@@ -142,13 +166,20 @@ export default function ContactPage() {
                 <label htmlFor="message">Message</label>
                 <textarea
                   id="message"
+                  name="message"
                   placeholder="Tell us about your project or enquiry…"
                   required
                 />
               </div>
 
+              {error && (
+                <p style={{ color: '#c0392b', fontSize: '14px', margin: '0 0 8px' }}>{error}</p>
+              )}
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                <button type="submit" className="btn btn-filled">Send Message</button>
+                <button type="submit" className="btn btn-filled" disabled={loading}>
+                  {loading ? 'Sending…' : 'Send Message'}
+                </button>
                 <span className="form-note">We typically respond within 2 business days.</span>
               </div>
             </form>
